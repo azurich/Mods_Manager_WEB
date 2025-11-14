@@ -24,17 +24,17 @@ const mockScreenshots: Screenshot[] = [
   {
     id: 1,
     title: "Interface principale",
-    image: "/screenshots/main-interface.webp"
+    image: "public\screenshots\main.png"
   },
   {
     id: 2,
     title: "Gestion des mods",
-    image: "/screenshots/mod-management.webp"
+    image: "public\screenshots\langue.png"
   },
   {
     id: 3,
     title: "Bibliothèque de mods",
-    image: "/screenshots/mod-library.webp"
+    image: "public/screenshots/settings.png"
   }
 ]
 
