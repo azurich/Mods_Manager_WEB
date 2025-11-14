@@ -78,9 +78,10 @@ export function ScreenshotCarousel() {
                         src={screenshot.image}
                         alt={screenshot.title}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         priority={screenshot.id === 1}
+                        quality={95}
                       />
                     </div>
                   </CardContent>
