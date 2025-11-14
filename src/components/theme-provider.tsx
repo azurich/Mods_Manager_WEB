@@ -9,6 +9,7 @@ interface ThemeProviderProps {
   defaultTheme?: string
   enableSystem?: boolean
   disableTransitionOnChange?: boolean
+  storageKey?: string
 }
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
