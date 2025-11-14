@@ -27,12 +27,21 @@ export const metadata: Metadata = {
     title: "Mods Manager - Gestionnaire de Mods Minecraft",
     description: "L'outil ultime pour installer, organiser et maintenir vos mods Minecraft. Compatible avec CurseForge et Modrinth.",
     siteName: "Mods Manager",
+    images: [
+      {
+        url: "https://mods-manager.com/screenshots/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Mods Manager - Aperçu du site",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mods Manager - Gestionnaire de Mods Minecraft",
     description: "Gérez vos mods Minecraft en toute simplicité. Gratuit et Open Source.",
     creator: "@azurich",
+    images: ["https://mods-manager.com/screenshots/og-image.png"],
   },
   robots: {
     index: true,
