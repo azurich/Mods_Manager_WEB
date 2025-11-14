@@ -73,7 +73,7 @@ export function ScreenshotCarousel() {
               <div className="p-1">
                 <Card className="border-0 bg-gradient-to-br from-background to-background/50 shadow-lg">
                   <CardContent className="p-3">
-                    <div className="relative aspect-video rounded-lg overflow-hidden bg-muted border border-border">
+                    <div className="relative rounded-lg overflow-hidden bg-muted border border-border" style={{ aspectRatio: '1344/696' }}>
                       <Image
                         src={screenshot.image}
                         alt={screenshot.title}
