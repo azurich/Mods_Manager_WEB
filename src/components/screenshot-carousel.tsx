@@ -13,34 +13,45 @@ import {
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Package } from "lucide-react"
+import { useTheme } from "next-themes"
 
 interface Screenshot {
   id: number
   title: string
-  image: string
+  imageLight: string
+  imageDark: string
 }
 
 const mockScreenshots: Screenshot[] = [
   {
     id: 1,
     title: "Interface principale",
-    image: "/screenshots/main.png"
+    imageLight: "/screenshots/light/main.png",
+    imageDark: "/screenshots/dark/main.png"
   },
   {
     id: 2,
     title: "Gestion des mods",
-    image: "/screenshots/langue.png"
+    imageLight: "/screenshots/light/langue.png",
+    imageDark: "/screenshots/dark/langue.png"
   },
   {
     id: 3,
     title: "Bibliothèque de mods",
-    image: "/screenshots/settings.png"
+    imageLight: "/screenshots/light/settings.png",
+    imageDark: "/screenshots/dark/settings.png"
   }
 ]
 
 export function ScreenshotCarousel() {
   const [api, setApi] = React.useState<CarouselApi>()
   const [currentIndex, setCurrentIndex] = React.useState(0)
+  const { theme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   React.useEffect(() => {
     if (!api) return
@@ -49,6 +60,13 @@ export function ScreenshotCarousel() {
       setCurrentIndex(api.selectedScrollSnap())
     })
   }, [api])
+
+  // Éviter le flash pendant le chargement du thème
+  if (!mounted) {
+    return null
+  }
+
+  const currentTheme = resolvedTheme || theme
 
   return (
     <motion.div
@@ -75,7 +93,7 @@ export function ScreenshotCarousel() {
                   <CardContent className="p-3">
                     <div className="relative rounded-lg overflow-hidden bg-muted border border-border" style={{ aspectRatio: '1344/696' }}>
                       <Image
-                        src={screenshot.image}
+                        src={currentTheme === 'dark' ? screenshot.imageDark : screenshot.imageLight}
                         alt={screenshot.title}
                         fill
                         className="object-cover"
