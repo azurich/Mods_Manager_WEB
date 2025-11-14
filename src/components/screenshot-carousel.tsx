@@ -56,7 +56,7 @@ export function ScreenshotCarousel() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-7xl mx-auto px-4"
+      className="w-full max-w-5xl mx-auto"
     >
       {/* Carousel avec indicateurs */}
       <Carousel
@@ -70,9 +70,9 @@ export function ScreenshotCarousel() {
         <CarouselContent className="cursor-grab active:cursor-grabbing">
           {mockScreenshots.map((screenshot) => (
             <CarouselItem key={screenshot.id}>
-              <div className="p-2">
+              <div className="p-1">
                 <Card className="border-0 bg-gradient-to-br from-background to-background/50 shadow-lg">
-                  <CardContent className="p-6">
+                  <CardContent className="p-3">
                     <div className="relative aspect-video rounded-lg overflow-hidden bg-muted border border-border">
                       <Image
                         src={screenshot.image}
