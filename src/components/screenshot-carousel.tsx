@@ -56,7 +56,7 @@ export function ScreenshotCarousel() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-4xl mx-auto"
+      className="w-full max-w-7xl mx-auto px-4"
     >
       {/* Carousel avec indicateurs */}
       <Carousel
