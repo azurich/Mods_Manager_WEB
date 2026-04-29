@@ -10,7 +10,6 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel"
-import { motion } from "framer-motion"
 import Image from "next/image"
 import { useTheme } from "next-themes"
 
@@ -76,13 +75,7 @@ export function ScreenshotCarousel() {
   const currentTheme = mounted ? resolvedTheme || theme : "light"
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="w-full max-w-5xl mx-auto"
-    >
+    <div className="mx-auto w-full max-w-5xl">
       {/* Carousel avec indicateurs */}
       <Carousel
         setApi={setApi}
@@ -137,6 +130,6 @@ export function ScreenshotCarousel() {
           />
         ))}
       </div>
-    </motion.div>
+    </div>
   )
 }
