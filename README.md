@@ -34,6 +34,12 @@ Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 npm run build
 ```
 
+## Qualité
+
+La CI GitHub exécute `npm ci`, `npm run lint`, `npm run build` et `npm audit --audit-level=moderate` sur chaque pull request vers `main` et chaque push sur `main`.
+
+La page récupère la dernière release de l'application via `/api/latest-release` et affiche le checksum SHA256 de l'installeur quand GitHub le fournit.
+
 ## Déploiement
 
 Le projet est configuré pour être déployé sur Vercel.
