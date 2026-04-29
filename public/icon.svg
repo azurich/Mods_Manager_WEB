@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
-  <title id="title">Mods Manager</title>
-  <rect width="512" height="512" rx="112" fill="#2563eb"/>
-  <path fill="#fff" d="M146 169c0-21 17-38 38-38h144c21 0 38 17 38 38v174c0 21-17 38-38 38H184c-21 0-38-17-38-38V169Zm57 14v146h106V183H203Zm30 36h46v30h-46v-30Zm0 59h46v30h-46v-30Z"/>
-  <path fill="#bfdbfe" d="M103 213h43v31h-43v-31Zm0 55h43v31h-43v-31Zm263-55h43v31h-43v-31Zm0 55h43v31h-43v-31Z"/>
-</svg>
