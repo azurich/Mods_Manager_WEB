@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import {
   Download,
   BookOpen,
@@ -25,6 +25,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { useLatestVersion } from "@/hooks/use-latest-version"
 
 export default function HomePage() {
+  const shouldReduceMotion = useReducedMotion()
   const {
     version,
     downloadUrl,
@@ -37,16 +38,28 @@ export default function HomePage() {
         maximumFractionDigits: 1,
       }).format(assetSize / 1024 / 1024)} Mo`
     : null
+  const fadeUpInitial = shouldReduceMotion ? false : { opacity: 0, y: 20 }
+  const fadeInitial = shouldReduceMotion ? false : { opacity: 0 }
+  const fadeUpTransition = shouldReduceMotion
+    ? { duration: 0 }
+    : { duration: 0.5, ease: "easeOut" as const }
 
   return (
     <div className="min-h-screen static-gradient">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-md focus:ring-2 focus:ring-ring"
+      >
+        Aller au contenu principal
+      </a>
+
       {/* Theme Toggle - Fixed Position */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
 
       {/* Content */}
-      <div>
+      <main id="main-content">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background Pattern */}
@@ -57,9 +70,9 @@ export default function HomePage() {
         <div className="container mx-auto relative">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={fadeUpInitial}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={fadeUpTransition}
               className="space-y-6"
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 backdrop-blur-sm transition-all hover:bg-primary/15">
@@ -81,13 +94,17 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={fadeUpInitial}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, delay: 0.2, ease: "easeOut" }}
               className="flex flex-col gap-4 items-center"
             >
               <Button size="lg" className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 transition-all duration-200 w-full sm:w-auto" asChild>
-                <a href={downloadUrl} className="flex items-center justify-center gap-2">
+                <a
+                  href={downloadUrl}
+                  className="flex items-center justify-center gap-2"
+                  aria-label={`Télécharger Mods Manager ${version} pour Windows`}
+                >
                   <Download className="h-5 w-5" />
                   Télécharger maintenant
                   <ArrowRight className="h-4 w-4" />
@@ -147,9 +164,9 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={fadeInitial}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, delay: 0.3, ease: "easeOut" }}
               className="flex flex-wrap items-center justify-center gap-4 pt-6"
             >
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50 border border-border">
@@ -167,16 +184,16 @@ export default function HomePage() {
       </section>
 
       {/* Screenshots Section */}
-      <section className="py-20">
+      <section className="py-20" aria-labelledby="screenshots-title">
         <div className="container mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={fadeUpInitial}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={fadeUpTransition}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 id="screenshots-title" className="text-3xl md:text-4xl font-bold mb-4">
               Interface moderne et intuitive
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -189,16 +206,16 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
+      <section className="py-20" aria-labelledby="features-title">
         <div className="container mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={fadeUpInitial}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={fadeUpTransition}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 id="features-title" className="text-3xl md:text-4xl font-bold mb-4">
               Fonctionnalités puissantes
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -241,10 +258,10 @@ export default function HomePage() {
             ].map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={fadeUpInitial}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
+                transition={shouldReduceMotion ? { duration: 0 } : {
                   duration: 0.5,
                   delay: index * 0.1,
                   ease: "easeOut"
@@ -279,7 +296,7 @@ export default function HomePage() {
           </p>
         </div>
       </footer>
-      </div>
+      </main>
     </div>
   )
 }

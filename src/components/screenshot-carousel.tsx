@@ -6,6 +6,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { motion } from "framer-motion"
@@ -62,6 +64,7 @@ export function ScreenshotCarousel() {
   React.useEffect(() => {
     if (!api) return
 
+    onSelect(api)
     api.on("select", onSelect)
 
     return () => {
@@ -69,12 +72,8 @@ export function ScreenshotCarousel() {
     }
   }, [api, onSelect])
 
-  // Éviter le flash pendant le chargement du thème
-  if (!mounted) {
-    return null
-  }
-
-  const currentTheme = resolvedTheme || theme
+  // Render light screenshots until the stored theme is available.
+  const currentTheme = mounted ? resolvedTheme || theme : "light"
 
   return (
     <motion.div
@@ -88,6 +87,7 @@ export function ScreenshotCarousel() {
       <Carousel
         setApi={setApi}
         className="w-full"
+        aria-label="Captures d'écran de Mods Manager"
         opts={{
           align: "center",
           loop: true,
@@ -105,10 +105,9 @@ export function ScreenshotCarousel() {
                         alt={screenshot.title}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 1024px) calc(100vw - 2rem), 1024px"
                         priority={screenshot.id === 1}
-                        quality={100}
-                        unoptimized={true}
+                        quality={85}
                       />
                     </div>
                   </CardContent>
@@ -117,6 +116,8 @@ export function ScreenshotCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPrevious className="left-3 sm:-left-12" />
+        <CarouselNext className="right-3 sm:-right-12" />
       </Carousel>
 
       {/* Indicateurs de points */}
@@ -124,13 +125,15 @@ export function ScreenshotCarousel() {
         {mockScreenshots.map((_, index) => (
           <button
             key={index}
+            type="button"
             onClick={() => api?.scrollTo(index)}
             className={`h-2 rounded-full transition-all duration-200 ${
               index === currentIndex
                 ? 'w-8 bg-primary'
                 : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
             }`}
-            aria-label={`Go to screenshot ${index + 1}`}
+            aria-current={index === currentIndex ? "true" : undefined}
+            aria-label={`Afficher la capture ${index + 1} : ${mockScreenshots[index].title}`}
           />
         ))}
       </div>
