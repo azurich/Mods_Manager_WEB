@@ -79,19 +79,19 @@ export default function HomePage() {
       </div>
 
       <main id="main-content">
-        <section className="relative flex min-h-screen items-center overflow-hidden">
-          <div className="absolute inset-0 opacity-5" aria-hidden="true">
+        <section className="hero-surface relative flex min-h-screen items-center overflow-hidden">
+          <div className="absolute inset-0 opacity-10" aria-hidden="true">
             <div className="absolute inset-0 bg-grid-pattern" />
           </div>
 
           <div className="container relative mx-auto">
             <div className="mx-auto max-w-4xl space-y-8 text-center">
-              <div className="animate-enter-up space-y-6">
+              <div className="hero-copy space-y-6">
                 <LatestVersionBadge />
 
                 <h1 className="text-5xl font-bold leading-tight tracking-tight md:text-7xl">
                   Gérez vos mods
-                  <span className="block bg-gradient-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent">
+                  <span className="hero-title-gradient block bg-gradient-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent">
                     en toute simplicité
                   </span>
                 </h1>
@@ -102,7 +102,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="animate-enter-up animation-delay-150 flex flex-col items-center gap-4">
+              <div className="hero-actions flex flex-col items-center gap-4">
                 <DownloadCard />
 
                 <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
@@ -153,7 +153,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="animate-fade-in animation-delay-300 flex flex-wrap items-center justify-center gap-4 pt-6">
+              <div className="hero-badges flex flex-wrap items-center justify-center gap-4 pt-6">
                 <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-4 py-2">
                   <CheckCircle className="h-4 w-4 text-primary" />
                   <span className="text-sm font-medium">Windows 10/11</span>
@@ -206,7 +206,7 @@ export default function HomePage() {
               {features.map((feature) => (
                 <Card
                   key={feature.title}
-                  className="h-full rounded-2xl border-2 border-border/50 bg-background shadow-sm"
+                  className="feature-card h-full rounded-2xl border-2 border-border/50 bg-background shadow-sm"
                 >
                   <CardContent className="p-6">
                     <div className="mb-4 flex items-start gap-4">

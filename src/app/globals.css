@@ -93,21 +93,28 @@
 
   @keyframes enter-up {
     from {
-      opacity: 0;
       transform: translateY(20px);
     }
     to {
-      opacity: 1;
       transform: translateY(0);
     }
   }
 
-  @keyframes fade-in {
+  @keyframes gradient-pan {
     from {
-      opacity: 0;
+      background-position: 0% 50%;
     }
     to {
-      opacity: 1;
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes badge-shimmer {
+    from {
+      transform: translateX(-120%);
+    }
+    to {
+      transform: translateX(120%);
     }
   }
 }
@@ -169,19 +176,66 @@
     );
   }
 
-  .animate-enter-up {
-    animation: enter-up 0.5s ease-out both;
+  .hero-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 22%, hsl(var(--primary) / 0.16), transparent 30%),
+      radial-gradient(circle at 82% 12%, hsl(var(--accent) / 0.5), transparent 26%),
+      linear-gradient(135deg, transparent, hsl(var(--primary) / 0.08), transparent);
+    background-size: 160% 160%;
+    animation: gradient-pan 14s ease-in-out infinite alternate;
+    pointer-events: none;
   }
 
-  .animate-fade-in {
-    animation: fade-in 0.5s ease-out both;
+  .hero-copy {
+    transform: translateZ(0);
   }
 
-  .animation-delay-150 {
-    animation-delay: 150ms;
+  .hero-title-gradient {
+    background-size: 220% 100%;
+    animation: gradient-pan 7s ease-in-out infinite alternate;
   }
 
-  .animation-delay-300 {
-    animation-delay: 300ms;
+  .hero-actions {
+    animation: enter-up 0.45s ease-out 120ms both;
   }
+
+  .hero-badges {
+    animation: enter-up 0.45s ease-out 220ms both;
+  }
+
+  .version-badge {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .version-badge::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 55%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--primary-foreground) / 0.28),
+      transparent
+    );
+    animation: badge-shimmer 3.8s ease-in-out infinite;
+  }
+
+  .feature-card {
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--primary) / 0.35);
+    box-shadow: 0 18px 45px hsl(var(--foreground) / 0.08);
+  }
+
 }
