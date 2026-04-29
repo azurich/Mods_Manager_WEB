@@ -6,13 +6,10 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Package } from "lucide-react"
 import { useTheme } from "next-themes"
 
 interface Screenshot {
@@ -43,23 +40,34 @@ const mockScreenshots: Screenshot[] = [
   }
 ]
 
+function useMounted() {
+  return React.useSyncExternalStore(
+    React.useCallback(() => () => {}, []),
+    () => true,
+    () => false
+  )
+}
+
 export function ScreenshotCarousel() {
   const [api, setApi] = React.useState<CarouselApi>()
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const { theme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+  const mounted = useMounted()
 
-  React.useEffect(() => {
-    setMounted(true)
+  const onSelect = React.useCallback((api: CarouselApi) => {
+    if (!api) return
+    setCurrentIndex(api.selectedScrollSnap())
   }, [])
 
   React.useEffect(() => {
     if (!api) return
 
-    api.on("select", () => {
-      setCurrentIndex(api.selectedScrollSnap())
-    })
-  }, [api])
+    api.on("select", onSelect)
+
+    return () => {
+      api.off("select", onSelect)
+    }
+  }, [api, onSelect])
 
   // Éviter le flash pendant le chargement du thème
   if (!mounted) {
