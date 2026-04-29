@@ -13,11 +13,10 @@ import {
   Settings,
   CheckCircle,
   ArrowRight,
-  Sparkles,
-  Zap
+  Sparkles
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
 import { ScreenshotCarousel } from "@/components/screenshot-carousel"
 import { DiscordIcon } from "@/components/discord-icon"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -64,7 +63,7 @@ export default function HomePage() {
               </h1>
               
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                L'outil ultime pour installer, organiser et maintenir vos mods Minecraft. 
+                L&apos;outil ultime pour installer, organiser et maintenir vos mods Minecraft. 
                 Compatible avec CurseForge et Modrinth.
               </p>
             </motion.div>

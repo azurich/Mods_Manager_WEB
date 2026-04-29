@@ -8,10 +8,10 @@ Site web vitrine pour Mods Manager, une application permettant de gérer facilem
 
 ## Technologies
 
-- Next.js 16.0.0 (Turbopack)
-- React
+- Next.js 16.2.4 (Turbopack)
+- React 19.2
 - TypeScript
-- Tailwind CSS
+- Tailwind CSS 3.4
 - Shadcn UI
 
 ## Installation
