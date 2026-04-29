@@ -13,7 +13,9 @@ import {
   Settings,
   CheckCircle,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  ShieldCheck,
+  ExternalLink
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
@@ -23,8 +25,18 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { useLatestVersion } from "@/hooks/use-latest-version"
 
 export default function HomePage() {
-  const { version } = useLatestVersion()
-  const downloadUrl = `https://github.com/azurich/Mods_Manager/releases/download/${version}/Mods-Manager-Setup.exe`
+  const {
+    version,
+    downloadUrl,
+    releaseUrl,
+    checksumSha256,
+    assetSize,
+  } = useLatestVersion()
+  const formattedAssetSize = assetSize
+    ? `${new Intl.NumberFormat("fr-FR", {
+        maximumFractionDigits: 1,
+      }).format(assetSize / 1024 / 1024)} Mo`
+    : null
 
   return (
     <div className="min-h-screen static-gradient">
@@ -81,6 +93,34 @@ export default function HomePage() {
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
+
+              {checksumSha256 && (
+                <div className="w-full max-w-2xl rounded-lg border border-border bg-background/75 p-4 text-left shadow-sm backdrop-blur">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-start gap-3">
+                      <ShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                      <div className="space-y-1">
+                        <p className="text-sm font-semibold">
+                          Installateur vérifiable
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          SHA256 {formattedAssetSize ? `- ${formattedAssetSize}` : ""}
+                        </p>
+                      </div>
+                    </div>
+                    <a
+                      href={releaseUrl}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                    >
+                      Release GitHub
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                  <code className="mt-3 block break-all rounded-md bg-muted px-3 py-2 text-xs text-muted-foreground">
+                    {checksumSha256}
+                  </code>
+                </div>
+              )}
 
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <Button variant="outline" size="lg" className="px-6 py-4 border-2 hover:bg-primary/5 hover:border-primary/30 transition-all duration-200 w-full sm:w-44" asChild>

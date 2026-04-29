@@ -13,23 +13,49 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = new URL("https://modsmanager.azurich.fr");
+
 export const metadata: Metadata = {
-  title: "Mods Manager",
-  description: "Gérez vos mods Minecraft en toute simplicité. Installation automatique, détection intelligente, compatible CurseForge et Modrinth. Gratuit et Open Source.",
-  keywords: ["mods manager", "minecraft", "mods", "curseforge", "modrinth", "gestionnaire de mods", "minecraft mods"],
+  metadataBase: siteUrl,
+  applicationName: "Mods Manager",
+  title: {
+    default: "Mods Manager",
+    template: "%s | Mods Manager",
+  },
+  description:
+    "Gérez vos mods Minecraft en toute simplicité. Installation automatique, détection intelligente, compatible CurseForge et Modrinth. Gratuit et Open Source.",
+  keywords: [
+    "mods manager",
+    "minecraft",
+    "mods",
+    "curseforge",
+    "modrinth",
+    "gestionnaire de mods",
+    "minecraft mods",
+  ],
   authors: [{ name: "Azurich" }],
   creator: "Azurich",
   publisher: "Azurich",
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://modsmanager.azurich.fr",
+    url: "/",
     title: "Mods Manager - Gestionnaire de Mods Minecraft",
-    description: "L'outil ultime pour installer, organiser et maintenir vos mods Minecraft. Compatible avec CurseForge et Modrinth.",
+    description:
+      "L'outil ultime pour installer, organiser et maintenir vos mods Minecraft. Compatible avec CurseForge et Modrinth.",
     siteName: "Mods Manager",
     images: [
       {
-        url: "https://modsmanager.azurich.fr/screenshots/og-image.png",
+        url: "/screenshots/og-image.png",
         width: 1200,
         height: 630,
         alt: "Mods Manager - Aperçu du site",
@@ -39,9 +65,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mods Manager - Gestionnaire de Mods Minecraft",
-    description: "Gérez vos mods Minecraft en toute simplicité. Gratuit et Open Source.",
+    description:
+      "Gérez vos mods Minecraft en toute simplicité. Gratuit et Open Source.",
     creator: "@azurich",
-    images: ["https://modsmanager.azurich.fr/screenshots/og-image.png"],
+    images: ["/screenshots/og-image.png"],
   },
   robots: {
     index: true,
@@ -61,13 +88,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const softwareJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Mods Manager",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Windows 10, Windows 11",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    description:
+      "Gestionnaire de Mods Minecraft - Installation automatique, compatible CurseForge et Modrinth",
+    softwareVersion: "2.0.8",
+    author: {
+      "@type": "Person",
+      name: "Azurich",
+    },
+  };
+
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#3b82f6" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(softwareJsonLd),
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -80,31 +131,6 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
-
-        {/* Structured Data for SEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "Mods Manager",
-              "applicationCategory": "UtilitiesApplication",
-              "operatingSystem": "Windows 10, Windows 11",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              },
-              "description": "Gestionnaire de Mods Minecraft - Installation automatique, compatible CurseForge et Modrinth",
-              "softwareVersion": "2.0.8",
-              "author": {
-                "@type": "Person",
-                "name": "Azurich"
-              }
-            })
-          }}
-        />
       </body>
     </html>
   );
